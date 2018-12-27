@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<title>Via CEP - Multipage App</title>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
+		<script>
+		window.onload = function(){
+			var parameters = new URLSearchParams(window.location.search);
+			
+			if (parameters.get("cep")){
+
+				// chamar a API
+				var sUrl = "https://viacep.com.br/ws/" + parameters.get("cep") + "/json/unicode/";
+
+				var oConfiguracao = {
+					url: sUrl,
+					method: "GET",
+					success: function(oRetorno, textStatus, jqXHR){
+						console.log(oRetorno);
+						$("#bairro").html(oRetorno.bairro);
+						$("#cep").html(oRetorno.cep);
+						$("#complemento").html(oRetorno.complemento);
+						$("#gia").html(oRetorno.gia);
+						$("#ibge").html(oRetorno.ibge);
+						$("#localidade").html(oRetorno.localidade);
+						$("#logradouro").html(oRetorno.logradouro);
+						$("#uf").html(oRetorno.uf);
+						$("#unidade").html(oRetorno.unidade);
+					},
+					error: function(jqXHR, textStatus, errorThrown){
+							//console.log("FALHOU");
+					}
+				};
+				
+				$.ajax(oConfiguracao);
+	
+			}
+			
+		}
+		</script>
+		
+		
+	</head>
+	<body>
+		<main>
+		  <div>
+			<table style="width:25%">
+			  <tr>
+			    <td>Bairro:</td>
+			    <td id="bairro"></td>
+			  </tr>
+			  <tr>
+			    <td>CEP:</td>
+			    <td id="cep"></td>
+			  </tr>
+			  <tr>
+			    <td>Complemento:</td>
+			    <td id="complemento"></td>
+			  </tr>
+			  <tr>
+			    <td>GIA:</td>
+			    <td id="gia"></td>
+			  </tr>
+			  <tr>
+			    <td>IBGE:</td>
+			    <td id="ibge"></td>
+			  </tr>
+			  <tr>
+			    <td>Localidade:</td>
+			    <td id="localidade"></td>
+			  </tr>
+			  <tr>
+			    <td>Logradouro:</td>
+			    <td id="logradouro"></td>
+			  </tr>
+			  <tr>
+			    <td>UF:</td>
+			    <td id="uf"></td>
+			  </tr>  
+			  <tr>
+			    <td>Unidade:</td>
+			    <td id="unidade"></td>
+			  </tr>  
+			</table>
+		  </div>
+		</main>
+	</body>
+</html>
